@@ -1,0 +1,210 @@
+# Stream-over-lay
+Youtube libe
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>itsmePuliYT Stream Overlay</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 2880px;
+            height: 368px;
+            background: transparent;
+            font-family: 'Arial Black', Impact, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Main Chassis Container */
+        .overlay-container {
+            width: 2880px;
+            height: 368px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 6px solid #ffd700;
+            box-shadow: inset 0 0 40px rgba(255, 215, 0, 0.4), 0 0 30px rgba(0, 0, 0, 0.8);
+            background: #0f0f13;
+            padding: 0 40px;
+        }
+
+        /* Gold Metallic Frame Sweep Effect */
+        .overlay-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -150%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 223, 0, 0.3), transparent);
+            transform: skewX(-25deg);
+            animation: metallicSweep 6s infinite ease-in-out;
+        }
+
+        @keyframes metallicSweep {
+            0% { left: -150%; }
+            50% { left: 150%; }
+            100% { left: 150%; }
+        }
+
+        /* LEFT SIDE: Flowing Lava / Fire Zone */
+        .left-zone {
+            width: 800px;
+            height: 280px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #3a0000, #990000, #ff4500, #ffcc00);
+            background-size: 400% 400%;
+            animation: lavaFlow 10s ease infinite;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 40px;
+            border-left: 5px solid #ffcc00;
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.6);
+        }
+
+        @keyframes lavaFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* RIGHT SIDE: Cosmic Space Nebula */
+        .right-zone {
+            width: 800px;
+            height: 280px;
+            border-radius: 12px;
+            background: radial-gradient(circle at 70% 30%, #4b0082, #000022, #000000);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            padding-right: 40px;
+            border-right: 5px solid #ffd700;
+            box-shadow: 0 0 20px rgba(75, 0, 130, 0.6);
+            overflow: hidden;
+        }
+
+        /* Moving Shooting Star in Nebula */
+        .right-zone::after {
+            content: '';
+            position: absolute;
+            top: -20px; right: -20px;
+            width: 4px; height: 100px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+            transform: rotate(45deg);
+            animation: shootingStar 8s infinite linear;
+        }
+
+        @keyframes shootingStar {
+            0% { transform: translate(0, 0) rotate(45deg); opacity: 0; }
+            5% { opacity: 1; }
+            15% { transform: translate(-600px, 600px) rotate(45deg); opacity: 0; }
+            100% { transform: translate(-600px, 600px) rotate(45deg); opacity: 0; }
+        }
+
+        /* CENTER DOCK: Call to Actions & Brand Status */
+        .center-dock {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .live-status {
+            font-size: 48px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+            animation: textPulse 2.5s infinite alternate;
+        }
+
+        @keyframes textPulse {
+            0% { transform: scale(1); text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700; }
+            100% { transform: scale(1.03); text-shadow: 0 0 20px #ff4500, 0 0 40px #ff4500; }
+        }
+
+        /* Action Buttons Cluster (Like, Share, Subscribe) */
+        .action-buttons {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .btn {
+            background: rgba(0, 0, 0, 0.6);
+            border: 3px solid #ffd700;
+            border-radius: 50px;
+            padding: 12px 35px;
+            font-size: 28px;
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        .btn-sub {
+            background: #ff0000;
+            color: #fff;
+            border-color: #ffffff;
+            animation: buttonPulse 1.8s infinite ease-in-out;
+        }
+
+        @keyframes buttonPulse {
+            0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+            50% { transform: scale(1.06); box-shadow: 0 0 25px rgba(255, 0, 0, 0.9); }
+            100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); }
+        }
+
+        /* Typography Styling */
+        .title-large {
+            font-size: 42px;
+            color: #fff;
+            text-shadow: 2px 2px 4px #000;
+            margin-bottom: 5px;
+        }
+
+        .sub-gold {
+            font-size: 32px;
+            color: #ffd700;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay-container">
+        
+        <div class="left-zone">
+            <div class="title-large">ROAD TO 1000 SUBSCRIBERS</div>
+            <div class="sub-gold">PUBG MOBILE</div>
+        </div>
+
+        <div class="center-dock">
+            <div class="live-status">itsmePuliYT IS ON LIVE</div>
+            <div class="action-buttons">
+                <div class="btn">👍 LIKE</div>
+                <div class="btn">🔄 SHARE</div>
+                <div class="btn btn-sub">🔔 SUBSCRIBE</div>
+            </div>
+        </div>
+
+        <div class="right-zone">
+            <div class="title-large">WOW AND ULTIMATELY ROYAL</div>
+            <div class="sub-gold">IPHONE 13 PRO MAX STREAM</div>
+        </div>
+
+    </div>
+
+</body>
+</html>
